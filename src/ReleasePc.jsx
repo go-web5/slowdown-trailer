@@ -47,18 +47,6 @@ const Right = styled.div`
   }
 `;
 
-// const BGR = styled.div`
-//   position: absolute;
-//   bottom: -148px;
-//   right: 50%;
-//   transform: translateX(50%);
-//   width: 136px;
-//   height: 133px;
-//   img {
-//     width: 100%;
-//   }
-// `;
-
 const H1 = styled.h1`
   word-break: keep-all;
   color: white;
@@ -250,9 +238,6 @@ function App() {
             </li>
           ))}
           </LinkList>
-          {/* <BGR>
-            <img src={bgrLogo} alt="Bold Gamble Records" />
-          </BGR> */}
         </Right>
       </Inner>
     </Wrapper>

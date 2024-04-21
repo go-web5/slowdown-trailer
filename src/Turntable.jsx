@@ -19,8 +19,8 @@ const TurntableWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
 `;
+
 const TurntableContainer = styled.div`
   position: relative;
   width: 720px;
@@ -175,16 +175,16 @@ const StartButton = styled.button`
 
 const PitchRotateNumber = styled.div`
   position: absolute;
-  bottom: 9px;
+  bottom: 14px;
   left: 94px;
   width: 80px;
   @media screen and (max-width: 768px) {
-    width: 9vw;
-    left: 10vw;
-    bottom: .25vw;
+    width: 8vw;
+    left: 10.7vw;
+    bottom: 2vw;
   }
   img {
-    display: inline-block;
+    display: block;
     width: 100%;
   }
 `;
@@ -216,6 +216,7 @@ const Sticker = styled.div`
     width: 14vw;
   }
   img {
+    display: block;
     width: 100%;
   }
 `;
@@ -231,18 +232,20 @@ const Adapter = styled.div`
     left: 3vw;
   }
   img {
+    display: block;
     width: 100%;
   }
 `;
+
 const Power = styled.div`
   position: absolute;
   left: 16px;
   bottom: 78px;
   width: 95px;
   @media screen and (max-width: 768px) {
-    width: 11vw;
+    width: 10.5vw;
     left: 2vw;
-    bottom: 7vw;
+    bottom: 8.5vw;
   }
   .power {
     width: 100%;
@@ -250,14 +253,17 @@ const Power = styled.div`
   .power-text {
     position: absolute;
     left: 5px;
-    bottom: 8px;
+    bottom: 3px;
     z-index: 1;
     width: 30px;
     @media screen and (max-width: 768px) {
-      left: .5vw;
-      bottom: 1.75vw;
-      width: 3.5vw;
+      left: 0.6vw;
+      bottom: 0.35vw;
+      width: 3.3vw;
     }
+  }
+  img {
+    display: block;
   }
 `;
 
@@ -293,7 +299,6 @@ const Turntable = () => {
       stop();
     }
   }, [isAnimatedA, setIsAnimatedB, play, stop]);
-
 
   return (
     <TurntableWrapper>

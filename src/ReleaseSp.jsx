@@ -1,7 +1,7 @@
-import { useEffect, useContext } from 'react';
-import { PromoContext } from "./App";
+import { createContext, useState, useEffect } from 'react';
+export const PromoContextSp = createContext();
 import styled from "styled-components";
-import Turntable from './Turntable';
+import TurntableSp from './TurntableSp';
 import Artwork from './Artwork';
 
 // 画像読み込み
@@ -51,6 +51,9 @@ const H1 = styled.h1`
     margin-right: 0.25vw;
     letter-spacing: 0.02em;
   }
+  .day {
+    font-size: 0.875rem;
+  }
   &.active {
     color: white;
   }
@@ -64,7 +67,7 @@ const Main = styled.div`
   width: 100%;
   height: 74vw;
   opacity: 1 !important;
-  transition: height 0.5s ease-in-out;
+  transition: height 1s ease-in-out;
   &.height-large {
     height: 90vw;
   }
@@ -140,15 +143,21 @@ const infoList = [
 ]
 
 function App() {
-  const {isAnimatedB, isAnimatedC, setIsAnimatedC, isAnimatedD, setIsAnimatedD, isAnimatedE, setIsAnimatedE, isAnimatedF, setIsAnimatedF, isAnimatedG, setIsAnimatedG } = useContext(PromoContext);
-
-  // B
+  const [isAnimatedA, setIsAnimatedA] = useState(false);
+  const [isAnimatedB, setIsAnimatedB] = useState(false);
+  const [isAnimatedC, setIsAnimatedC] = useState(false);
+  const [isAnimatedD, setIsAnimatedD] = useState(false);
+  const [isAnimatedE, setIsAnimatedE] = useState(false);
+  const [isAnimatedF, setIsAnimatedF] = useState(false);
+  const [isAnimatedG, setIsAnimatedG] = useState(false);
+  
+  // B: 2.6秒後にテキストが非表示で存在
   useEffect(() => {
     if(isAnimatedB) {
-      console.log("3秒後にターンテーブルが左に移動開始");
+      console.log("2.6秒後にテキスト表示");
       const changeTimeout2 = setTimeout(() => {
         setIsAnimatedC(prev => !prev);
-      }, 3000);
+      }, 2600);
 
       return () => {
         clearTimeout(changeTimeout2);
@@ -156,26 +165,11 @@ function App() {
     }
   }, [isAnimatedB, setIsAnimatedC]);
 
-  // C
+  // C: テキスト分割＆表示開始
   useEffect(() => {
     if(isAnimatedC) {
-      console.log("2秒後にテキスト表示");
-      const changeTimeout3 = setTimeout(() => {
-        setIsAnimatedD(prev => !prev);
-      }, 3000);
+      console.log("2秒後にテキスト分割＆表示準備");
 
-      return () => {
-        clearTimeout(changeTimeout3);
-      }
-    }
-  }, [isAnimatedC, setIsAnimatedD])
-
-  // D
-  useEffect(() => {
-    if(isAnimatedD) {
-      console.log("テキスト分割＆表示準備");
-
-      // js-split-textの要素の配列に格納
       const splitTargets = document.querySelectorAll(".js-split-text");
       console.log(splitTargets);
     
@@ -188,7 +182,7 @@ function App() {
         splitTarget.querySelectorAll('span').forEach((charSpan, charIndex) => {
           charSpan.style.opacity = 0;
           charSpan.style.transform = 'translateY(100%)';
-          charSpan.style.transition = 'opacity 0.5s ease-in-out ' + charIndex * 0.1 + 's, transform 0.5s ease-in-out ' + charIndex * 0.1 + 's';
+          charSpan.style.transition = 'opacity 0.5s ease-in-out ' + charIndex * 0.2 + 's, transform 0.5s ease-in-out ' + charIndex * 0.2 + 's';
           
           setTimeout(() => {
             console.log("テキスト表示開始");
@@ -198,9 +192,23 @@ function App() {
         });
       });
 
+      const changeTimeout3 = setTimeout(() => {
+        setIsAnimatedD(prev => !prev);
+      }, 2000);
+
+      return () => {
+        clearTimeout(changeTimeout3);
+      }
+    }
+  }, [isAnimatedC, setIsAnimatedD])
+
+  // D: OUT NOW点滅開始
+  useEffect(() => {
+    if(isAnimatedD) {
       const changeTimeout4 = setTimeout(() => {
+        console.log("OUT NOW点滅開始");
         setIsAnimatedE(prev => !prev);
-      }, 1400);
+      }, 1600);
 
       return () => {
         clearTimeout(changeTimeout4);
@@ -208,13 +216,13 @@ function App() {
     }
   }, [isAnimatedD, setIsAnimatedE])
 
-  // E
+  // E: ターンテーブル上下の余白広がる
   useEffect(() => {
     if(isAnimatedE) {
       const changeTimeout5 = setTimeout(() => {
-        console.log("点滅開始");
+        console.log("ターンテーブル上下の余白広がる");
         setIsAnimatedF(prev => !prev);
-      }, 1400);
+      }, 21000);
 
       return () => {
         clearTimeout(changeTimeout5);
@@ -222,13 +230,13 @@ function App() {
     }
   }, [isAnimatedE, setIsAnimatedF])
 
-  // F
+  // F: ターンテーブルからアートワークに表示切り替え
   useEffect(() => {
     if(isAnimatedF) {
       const changeTimeout6 = setTimeout(() => {
         console.log("ターンテーブルからアートワークに表示切り替え");
         setIsAnimatedG(prev => !prev);
-      }, 20000);
+      }, 1000);
 
       return () => {
         clearTimeout(changeTimeout6);
@@ -237,31 +245,49 @@ function App() {
   }, [isAnimatedF, setIsAnimatedG])
   
   return (
-    <Wrapper>
-      <Inner> 
-        <Right>
-          <H1 className={isAnimatedD ? "active" : ""}>
-            <SplitText className="js-split-text">Ghost Lamp</SplitText>
-            <span className="small js-split-text">New Beat Album</span>
-            <SplitText className="js-split-text">Slow Down</SplitText>
-            <Main className={isAnimatedG ? "height-large" : ""}>
-              {isAnimatedG ? <Artwork /> : <Turntable />}
-            </Main>
-            <span className="small sp"><span className="date js-split-text">2024.04.23</span><span className="date js-split-text"> (Tue)</span></span>
-            <SplitText className={isAnimatedF ? "js-split-text blinking" : "js-split-text"}>Out Now</SplitText>
-          </H1>
-          <LinkList className={isAnimatedE ? "active" : ""}>
-          {infoList.map((infoItem, index) => (
-            <li key={index}>
-              <a href={infoItem.href} target="_blank" className={infoItem.className}>
-                <img src={infoItem.imgSrc} alt={infoItem.imgAlt} />
-              </a>
-            </li>
-          ))}
-          </LinkList>
-        </Right>
-      </Inner>
-    </Wrapper>
+    <PromoContextSp.Provider
+    value={{
+      isAnimatedA,
+      setIsAnimatedA,
+      isAnimatedB,
+      setIsAnimatedB,
+      isAnimatedC,
+      setIsAnimatedC,
+      isAnimatedD,
+      setIsAnimatedD,
+      isAnimatedE,
+      setIsAnimatedE,
+      isAnimatedF,
+      setIsAnimatedF,
+      isAnimatedG,
+      setIsAnimatedG
+    }}>
+      <Wrapper>
+        <Inner> 
+          <Right>
+            <H1 className={isAnimatedC ? "active" : ""}>
+              <SplitText className="js-split-text">Ghost Lamp</SplitText>
+              <span className="small js-split-text">New Beat Album</span>
+              <SplitText className="js-split-text">Slow Down</SplitText>
+              <Main className={isAnimatedF ? "height-large" : ""}>
+                {isAnimatedG ? <Artwork /> : <TurntableSp />}
+              </Main>
+              <span className="small sp"><span className="date js-split-text">2024.04.23</span><span className="date day js-split-text">（Tue）</span></span>
+              <SplitText className={isAnimatedE ? "js-split-text blinking" : "js-split-text"}>Out Now</SplitText>
+            </H1>
+            <LinkList className={isAnimatedD ? "active" : ""}>
+            {infoList.map((infoItem, index) => (
+              <li key={index}>
+                <a href={infoItem.href} target="_blank" className={infoItem.className}>
+                  <img src={infoItem.imgSrc} alt={infoItem.imgAlt} />
+                </a>
+              </li>
+            ))}
+            </LinkList>
+          </Right>
+        </Inner>
+      </Wrapper>
+    </PromoContextSp.Provider>
   );
 }
 

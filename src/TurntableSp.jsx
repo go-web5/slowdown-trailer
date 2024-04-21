@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { PromoContext } from "./App";
+import { PromoContextSp } from "./ReleaseSp";
 import useSound from 'use-sound';
 import styled from "styled-components";
 
@@ -268,8 +268,8 @@ const Power = styled.div`
   }
 `;
 
-const Turntable = () => {
-  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB} = useContext(PromoContext);
+const TurntableSp = () => {
+  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB} = useContext(PromoContextSp);
   const [play, { stop }] = useSound(sound);
 
   const clickHandle = () => {
@@ -335,4 +335,4 @@ const Turntable = () => {
   );
 }
 
-export default Turntable;
+export default TurntableSp;

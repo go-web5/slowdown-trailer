@@ -61,6 +61,7 @@ const Needle = styled.div`
     width: 20vw;
   }
   img {
+    display: block;
     width: 100%;
     filter: drop-shadow(10px 10px 5px rgba(53, 50, 50, 0.5));
     @media screen and (max-width: 768px) {
@@ -91,7 +92,7 @@ const Needle = styled.div`
   }
 `;
 
-const Rotate = styled.div`
+const Rotate = styled.a`
   position: absolute;
   top: 50%;
   left: 16px;
@@ -192,15 +193,15 @@ const PitchRotateNumber = styled.div`
 const Pitch = styled.div`
   position: absolute;
   right: 12px;
-  bottom: 38px;
+  bottom: 44px;
   width: 56px;
   @media screen and (max-width: 768px) {
     right: 2vw;
-    bottom: 4vw;
+    bottom: 6vw;
     width: 6vw;
   }
   img {
-    display: inline-block;
+    display: block;
     width: 100%;
   }
 `;
@@ -306,7 +307,7 @@ const Turntable = () => {
         <Needle className={isAnimatedA ? "needle-drop" : ""}>
           <img src={needleImg} alt="Needle" />
         </Needle>
-        <Rotate>
+        <Rotate href="https://linkco.re/xq9Xv6Ne" target="_blank">
           <img src={vinyl} alt="Slow Down Vinyl" className={isAnimatedB ? "rotate-vinyl" : ""} />
         </Rotate>
         <StartButton onClick={clickHandle}>

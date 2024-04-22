@@ -25,6 +25,14 @@ const Inner = styled.div`
   padding: 0 48px;
   &.left-move {
     animation: left-move 3s ease-in-out forwards;
+    @media screen and (max-width: 1656px) {
+      animation: left-move-tab 3s ease-in-out forwards;
+    }
+  }
+  @media screen and (max-width: 1656px) {
+    width: 43.4782609vw;
+    gap: 7vw;
+    padding: 0 6vw;
   }
   @keyframes left-move {
     0% {
@@ -32,6 +40,14 @@ const Inner = styled.div`
     }
     100% {
       width: 1560px;
+    }
+  }
+  @keyframes left-move-tab {
+    0% {
+      width: 43.4782609vw;
+    }
+    100% {
+      width: calc(100% - 6vw * 2);
     }
   }
 `;
@@ -52,20 +68,32 @@ const H1 = styled.h1`
   color: white;
   text-align: center;
   font-size: 5rem;
+  @media screen and (max-width: 1656px) {
+    font-size: clamp(1.6rem, 4vw, 5rem);
+  }
   .small {
     display: block;
     margin-top: 60px;
     font-weight: 400;
     font-size: 2.25rem;
+    @media screen and (max-width: 1656px) {
+      margin-top: 3.62vw;
+      font-size: clamp(0.6rem, 1.6vw, 2.25rem);
+    }
   }
   .date {
-    font-size: 2.8rem;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 12px;
+    font-size: 2.8rem;
     letter-spacing: 0.1em;
+    @media screen and (max-width: 1656px) {
+      margin-right: 0.72vw;
+      font-size: clamp(1rem, 1.6vw, 2.8rem);
+    }
   }
   .day {
-    font-size: 2.2rem;
+    display: inline-block;
+    letter-spacing: 0.1em;
   }
 `;
 
@@ -73,12 +101,23 @@ const LinkList = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
+  display: grid;
+  grid-template-columns: 208px 152px 208px;
   gap: 40px;
   margin-top: 60px;
   opacity: 0;
   transition: opacity 1s ease-in-out;
+  @media screen and (max-width: 1656px) {
+    grid-template-columns: 12.56vw 9.18vw 12.56vw;
+    gap: 2.42vw;
+    margin-top: 3.62vw;
+  }
   a {
     display: inline-block;
+    width: 100%;
+    img {
+      width: 100%;
+    }
   }
   &.active {
     opacity: 1;
@@ -252,7 +291,7 @@ function App() {
               <SplitText className="js-split-text">Ghost Lamp</SplitText>
               <span className="small js-split-text">New Beat Album</span>
               <SplitText className="js-split-text">Slow Down</SplitText>
-              <span className="small"><span className="date js-split-text">2024.04.23</span><span className="date day js-split-text">（Tue）</span></span>
+              <span className="small"><span className="date js-split-text">2024.04.23</span><span className="day js-split-text">(Tue)</span></span>
               <SplitText className={isAnimatedF ? "js-split-text blinking" : "js-split-text"}>Out Now</SplitText>
             </H1>
             <LinkList className={isAnimatedE ? "active" : ""}>

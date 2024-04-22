@@ -33,6 +33,10 @@ const TurntableContainer = styled.div`
   transform-origin: left bottom;
   transition: transform .4s ease-out;
   box-sizing: border-box;
+  @media screen and (max-width: 1656px) {
+    width: 43.4782609vw;
+    border-width: 0.12vw;
+  }
   @media screen and (max-width: 768px) {
     width: 80vw;
     transform: scale(4);
@@ -55,6 +59,11 @@ const Needle = styled.div`
   width: 170px;
   transform-origin: 52% 26%;
   z-index: 1;
+  @media screen and (max-width: 1656px) {
+    top: 0.97vw;
+    right: 1.21vw;
+    width: 10.27vw;
+  }
   @media screen and (max-width: 768px) {
     top: 1vw;
     right: 1.6vw;
@@ -110,6 +119,14 @@ const Rotate = styled.a`
   background-position: 0 0, 6px 6px;
   background-size: 12px 12px;
   border: 4px solid #3f3f3f;
+  @media screen and (max-width: 1656px) {
+    left: 0.97vw;
+    width: 31.64vw;
+    height: 31.64vw;
+    background-position: 0 0, 0.36vw 0.36vw;
+    background-size: 0.72vw 0.72vw;
+    border-width: 0.24vw;
+  }
   @media screen and (max-width: 768px) {
     left: 1.75vw;
     width: 58vw;
@@ -126,6 +143,11 @@ const Rotate = styled.a`
     height: 480px;
     border: 4px solid #3f3f3f;
     border-radius: 100vmax;
+    @media screen and (max-width: 1656px) {
+      width: 28.99vw;
+      height: 28.99vw;
+      border-width: 0.24vw;
+    }
     @media screen and (max-width: 768px) {
       width: 54vw;
       height: 54vw;
@@ -155,6 +177,13 @@ const StartButton = styled.button`
   background-color: #EDEDF1;
   border: 4px solid #0f0f0f;
   cursor: pointer;
+  @media screen and (max-width: 1656px) {
+    left: 0.85vw;
+    bottom: 0.85vw;
+    width: 4.35vw;
+    height: 3.02vw;
+    border-width: 0.24vw;
+  }
   @media screen and (max-width: 768px) {
     bottom: 2vw;
     left: 2vw;
@@ -168,6 +197,9 @@ const StartButton = styled.button`
     left: 50%;
     transform: translate(-50%, -50%);
     width: 38px;
+    @media screen and (max-width: 1656px) {
+      width: 2.29vw;
+    }
     @media screen and (max-width: 768px) {
       width: 5vw;
     }
@@ -179,6 +211,11 @@ const PitchRotateNumber = styled.div`
   bottom: 14px;
   left: 94px;
   width: 80px;
+  @media screen and (max-width: 1656px) {
+    bottom: 0.85vw;
+    left: 5.68vw;
+    width: 4.83vw;
+  }
   @media screen and (max-width: 768px) {
     width: 8vw;
     left: 10.7vw;
@@ -195,6 +232,11 @@ const Pitch = styled.div`
   right: 12px;
   bottom: 44px;
   width: 56px;
+  @media screen and (max-width: 1656px) {
+    right: 0.72vw;
+    bottom: 2.66vw;
+    width: 3.38vw;
+  }
   @media screen and (max-width: 768px) {
     right: 2vw;
     bottom: 6vw;
@@ -211,6 +253,11 @@ const Sticker = styled.div`
   right: 78px;
   bottom: 16px;
   width: 136px;
+  @media screen and (max-width: 1656px) {
+    right: 4.71vw;
+    bottom: 0.97vw;
+    width: 8.21vw;
+  }
   @media screen and (max-width: 768px) {
     right: 10vw;
     bottom: 1.5vw;
@@ -227,6 +274,11 @@ const Adapter = styled.div`
   top: 24px;
   left: 24px;
   width: 65px;
+  @media screen and (max-width: 1656px) {
+    top: 1.45vw;
+    left: 1.45vw;
+    width: 3.93vw;
+  }
   @media screen and (max-width: 768px) {
     width: 7vw;
     top: 3vw;
@@ -243,6 +295,11 @@ const Power = styled.div`
   left: 16px;
   bottom: 78px;
   width: 95px;
+  @media screen and (max-width: 1656px) {
+    left: 0.97vw;
+    bottom: 4.71vw;
+    width: 5.74vw;
+  }
   @media screen and (max-width: 768px) {
     width: 10.5vw;
     left: 2vw;
@@ -257,6 +314,11 @@ const Power = styled.div`
     bottom: 3px;
     z-index: 1;
     width: 30px;
+    @media screen and (max-width: 1656px) {
+      left: 0.3vw;
+      bottom: 0.18vw;
+      width: 1.81vw;
+    }
     @media screen and (max-width: 768px) {
       left: 0.6vw;
       bottom: 0.35vw;
@@ -308,7 +370,7 @@ const TurntablePc = () => {
           <img src={needleImg} alt="Needle" />
         </Needle>
         <Rotate href="https://linkco.re/xq9Xv6Ne" target="_blank">
-          <img src={vinyl} alt="Slow Down Vinyl" className={isAnimatedB ? "rotate-vinyl" : ""} />
+          <img src={vinyl} alt="Slow Down Vinyl" className={isAnimatedB ? "rotate-vinyl" : ""} width="720" height="720" />
         </Rotate>
         <StartButton onClick={clickHandle}>
           <img src={startText} alt="start・stop" />

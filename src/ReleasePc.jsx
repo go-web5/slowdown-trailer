@@ -1,7 +1,7 @@
-import { useEffect, useContext } from 'react';
-import { PromoContext } from "./App";
+import { createContext, useState, useEffect } from 'react';
+export const PromoContextPc = createContext();
 import styled from "styled-components";
-import Turntable from './Turntable';
+import TurntablePc from './TurntablePc';
 import Artwork from './Artwork';
 
 // 画像読み込み
@@ -25,6 +25,14 @@ const Inner = styled.div`
   padding: 0 48px;
   &.left-move {
     animation: left-move 3s ease-in-out forwards;
+    @media screen and (max-width: 1656px) {
+      animation: left-move-tab 3s ease-in-out forwards;
+    }
+  }
+  @media screen and (max-width: 1656px) {
+    width: 43.4782609vw;
+    gap: 7vw;
+    padding: 0 6vw;
   }
   @keyframes left-move {
     0% {
@@ -32,6 +40,14 @@ const Inner = styled.div`
     }
     100% {
       width: 1560px;
+    }
+  }
+  @keyframes left-move-tab {
+    0% {
+      width: 43.4782609vw;
+    }
+    100% {
+      width: calc(100% - 6vw * 2);
     }
   }
 `;
@@ -47,33 +63,36 @@ const Right = styled.div`
   }
 `;
 
-// const BGR = styled.div`
-//   position: absolute;
-//   bottom: -148px;
-//   right: 50%;
-//   transform: translateX(50%);
-//   width: 136px;
-//   height: 133px;
-//   img {
-//     width: 100%;
-//   }
-// `;
-
 const H1 = styled.h1`
   word-break: keep-all;
   color: white;
   text-align: center;
   font-size: 5rem;
+  @media screen and (max-width: 1656px) {
+    font-size: clamp(1.6rem, 4vw, 5rem);
+  }
   .small {
     display: block;
     margin-top: 60px;
     font-weight: 400;
     font-size: 2.25rem;
+    @media screen and (max-width: 1656px) {
+      margin-top: 3.62vw;
+      font-size: clamp(0.6rem, 1.6vw, 2.25rem);
+    }
   }
   .date {
-    font-size: 2.8rem;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 12px;
+    font-size: 2.8rem;
+    letter-spacing: 0.1em;
+    @media screen and (max-width: 1656px) {
+      margin-right: 0.72vw;
+      font-size: clamp(1rem, 1.6vw, 2.8rem);
+    }
+  }
+  .day {
+    display: inline-block;
     letter-spacing: 0.1em;
   }
 `;
@@ -82,12 +101,23 @@ const LinkList = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
+  display: grid;
+  grid-template-columns: 208px 152px 208px;
   gap: 40px;
   margin-top: 60px;
   opacity: 0;
   transition: opacity 1s ease-in-out;
+  @media screen and (max-width: 1656px) {
+    grid-template-columns: 12.56vw 9.18vw 12.56vw;
+    gap: 2.42vw;
+    margin-top: 3.62vw;
+  }
   a {
     display: inline-block;
+    width: 100%;
+    img {
+      width: 100%;
+    }
   }
   &.active {
     opacity: 1;
@@ -99,7 +129,7 @@ const SplitText = styled.span`
   text-align: center;
   &.blinking {
     color: #cf1313;
-    animation: blinking 1.5s ease-in-out infinite;
+    animation: blinking 1s ease-in-out infinite;
   }
   @keyframes blinking {
     0% {
@@ -126,16 +156,22 @@ const infoList = [
     imgAlt: "Spotify"
   },
   {
-    href: "https://www.amazon.co.jp/music/player?&_encoding=UTF8&tag=tcjaz-22&linkCode=ur2&camp=247&creative=1211",
+    href: "https://www.amazon.co.jp/music/player/albums/B0CZ7P5V1T?&_encoding=UTF8&tag=tcjaz-22&linkCode=ur2&camp=247&creative=1211", 
     imgSrc: amazon,
     imgAlt: "amazon music"
   },
 ]
 
 function App() {
-  const {isAnimatedB, isAnimatedC, setIsAnimatedC, isAnimatedD, setIsAnimatedD, isAnimatedE, setIsAnimatedE, isAnimatedF, setIsAnimatedF, isAnimatedG, setIsAnimatedG } = useContext(PromoContext);
-  
-  // B
+  const [isAnimatedA, setIsAnimatedA] = useState(false);
+  const [isAnimatedB, setIsAnimatedB] = useState(false);
+  const [isAnimatedC, setIsAnimatedC] = useState(false);
+  const [isAnimatedD, setIsAnimatedD] = useState(false);
+  const [isAnimatedE, setIsAnimatedE] = useState(false);
+  const [isAnimatedF, setIsAnimatedF] = useState(false);
+  const [isAnimatedG, setIsAnimatedG] = useState(false);
+
+  // B: 3秒後にターンテーブルが左に移動開始
   useEffect(() => {
     if(isAnimatedB) {
       console.log("3秒後にターンテーブルが左に移動開始");
@@ -149,10 +185,10 @@ function App() {
     }
   }, [isAnimatedB, setIsAnimatedC]);
 
-  // C
+  // C: 3秒後に右側のテキストエリア非表示で存在
   useEffect(() => {
     if(isAnimatedC) {
-      console.log("2秒後にテキスト表示");
+      console.log("3秒後にテキスト表示");
       const changeTimeout3 = setTimeout(() => {
         setIsAnimatedD(prev => !prev);
       }, 3000);
@@ -163,7 +199,7 @@ function App() {
     }
   }, [isAnimatedC, setIsAnimatedD])
 
-  // D
+  // D: 右側のテキスト表示開始
   useEffect(() => {
     if(isAnimatedD) {
       console.log("テキスト分割＆表示準備");
@@ -201,11 +237,11 @@ function App() {
     }
   }, [isAnimatedD, setIsAnimatedE])
 
-  // E
+  // E: OUT NOW点滅開始
   useEffect(() => {
     if(isAnimatedE) {
       const changeTimeout5 = setTimeout(() => {
-        console.log("点滅開始");
+        console.log("OUT NOW点滅開始");
         setIsAnimatedF(prev => !prev);
       }, 1400);
 
@@ -215,7 +251,7 @@ function App() {
     }
   }, [isAnimatedE, setIsAnimatedF])
 
-  // F
+  // F: ターンテーブルからアートワークに表示切り替え
   useEffect(() => {
     if(isAnimatedF) {
       const changeTimeout6 = setTimeout(() => {
@@ -230,32 +266,47 @@ function App() {
   }, [isAnimatedF, setIsAnimatedG])
 
   return (
-    <Wrapper>
-      <Inner className={isAnimatedC ? "left-move" : ""}> 
-        {isAnimatedG ? <Artwork /> : <Turntable />}
-        <Right className={isAnimatedD ? "active" : ""}>
-          <H1>
-            <SplitText className="js-split-text">Ghost Lamp</SplitText>
-            <span className="small js-split-text">New Beat Album</span>
-            <SplitText className="js-split-text">Slow Down</SplitText>
-            <span className="small"><span className="date js-split-text">2024.04.23</span><span className="date js-split-text"> (Tue)</span></span>
-            <SplitText className={isAnimatedF ? "js-split-text blinking" : "js-split-text"}>Out Now</SplitText>
-          </H1>
-          <LinkList className={isAnimatedE ? "active" : ""}>
-          {infoList.map((infoItem, index) => (
-            <li key={index}>
-              <a href={infoItem.href} target="_blank">
-                <img src={infoItem.imgSrc} alt={infoItem.imgAlt} />
-              </a>
-            </li>
-          ))}
-          </LinkList>
-          {/* <BGR>
-            <img src={bgrLogo} alt="Bold Gamble Records" />
-          </BGR> */}
-        </Right>
-      </Inner>
-    </Wrapper>
+    <PromoContextPc.Provider
+    value={{
+      isAnimatedA,
+      setIsAnimatedA,
+      isAnimatedB,
+      setIsAnimatedB,
+      isAnimatedC,
+      setIsAnimatedC,
+      isAnimatedD,
+      setIsAnimatedD,
+      isAnimatedE,
+      setIsAnimatedE,
+      isAnimatedF,
+      setIsAnimatedF,
+      isAnimatedG,
+      setIsAnimatedG
+    }}>
+      <Wrapper>
+        <Inner className={isAnimatedC ? "left-move" : ""}> 
+          {isAnimatedG ? <Artwork /> : <TurntablePc />}
+          <Right className={isAnimatedD ? "active" : ""}>
+            <H1>
+              <SplitText className="js-split-text">Ghost Lamp</SplitText>
+              <span className="small js-split-text">New Beat Album</span>
+              <SplitText className="js-split-text">Slow Down</SplitText>
+              <span className="small"><span className="date js-split-text">2024.04.23</span><span className="day js-split-text">(Tue)</span></span>
+              <SplitText className={isAnimatedF ? "js-split-text blinking" : "js-split-text"}>Out Now</SplitText>
+            </H1>
+            <LinkList className={isAnimatedE ? "active" : ""}>
+            {infoList.map((infoItem, index) => (
+              <li key={index}>
+                <a href={infoItem.href} target="_blank">
+                  <img src={infoItem.imgSrc} alt={infoItem.imgAlt} />
+                </a>
+              </li>
+            ))}
+            </LinkList>
+          </Right>
+        </Inner>
+      </Wrapper>
+    </PromoContextPc.Provider>
   );
 }
 

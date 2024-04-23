@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { PromoContext } from "./App";
+import { PromoContextPc } from "./ReleasePc";
 import useSound from 'use-sound';
 import styled from "styled-components";
 
@@ -19,8 +19,8 @@ const TurntableWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
 `;
+
 const TurntableContainer = styled.div`
   position: relative;
   width: 720px;
@@ -33,6 +33,10 @@ const TurntableContainer = styled.div`
   transform-origin: left bottom;
   transition: transform .4s ease-out;
   box-sizing: border-box;
+  @media screen and (max-width: 1656px) {
+    width: 43.4782609vw;
+    border-width: 0.12vw;
+  }
   @media screen and (max-width: 768px) {
     width: 80vw;
     transform: scale(4);
@@ -55,12 +59,18 @@ const Needle = styled.div`
   width: 170px;
   transform-origin: 52% 26%;
   z-index: 1;
+  @media screen and (max-width: 1656px) {
+    top: 0.97vw;
+    right: 1.21vw;
+    width: 10.27vw;
+  }
   @media screen and (max-width: 768px) {
     top: 1vw;
     right: 1.6vw;
     width: 20vw;
   }
   img {
+    display: block;
     width: 100%;
     filter: drop-shadow(10px 10px 5px rgba(53, 50, 50, 0.5));
     @media screen and (max-width: 768px) {
@@ -91,7 +101,7 @@ const Needle = styled.div`
   }
 `;
 
-const Rotate = styled.div`
+const Rotate = styled.a`
   position: absolute;
   top: 50%;
   left: 16px;
@@ -109,6 +119,14 @@ const Rotate = styled.div`
   background-position: 0 0, 6px 6px;
   background-size: 12px 12px;
   border: 4px solid #3f3f3f;
+  @media screen and (max-width: 1656px) {
+    left: 0.97vw;
+    width: 31.64vw;
+    height: 31.64vw;
+    background-position: 0 0, 0.36vw 0.36vw;
+    background-size: 0.72vw 0.72vw;
+    border-width: 0.24vw;
+  }
   @media screen and (max-width: 768px) {
     left: 1.75vw;
     width: 58vw;
@@ -125,6 +143,11 @@ const Rotate = styled.div`
     height: 480px;
     border: 4px solid #3f3f3f;
     border-radius: 100vmax;
+    @media screen and (max-width: 1656px) {
+      width: 28.99vw;
+      height: 28.99vw;
+      border-width: 0.24vw;
+    }
     @media screen and (max-width: 768px) {
       width: 54vw;
       height: 54vw;
@@ -154,6 +177,13 @@ const StartButton = styled.button`
   background-color: #EDEDF1;
   border: 4px solid #0f0f0f;
   cursor: pointer;
+  @media screen and (max-width: 1656px) {
+    left: 0.85vw;
+    bottom: 0.85vw;
+    width: 4.35vw;
+    height: 3.02vw;
+    border-width: 0.24vw;
+  }
   @media screen and (max-width: 768px) {
     bottom: 2vw;
     left: 2vw;
@@ -167,6 +197,9 @@ const StartButton = styled.button`
     left: 50%;
     transform: translate(-50%, -50%);
     width: 38px;
+    @media screen and (max-width: 1656px) {
+      width: 2.29vw;
+    }
     @media screen and (max-width: 768px) {
       width: 5vw;
     }
@@ -175,16 +208,21 @@ const StartButton = styled.button`
 
 const PitchRotateNumber = styled.div`
   position: absolute;
-  bottom: 9px;
+  bottom: 14px;
   left: 94px;
   width: 80px;
+  @media screen and (max-width: 1656px) {
+    bottom: 0.85vw;
+    left: 5.68vw;
+    width: 4.83vw;
+  }
   @media screen and (max-width: 768px) {
-    width: 9vw;
-    left: 10vw;
-    bottom: .25vw;
+    width: 8vw;
+    left: 10.7vw;
+    bottom: 2vw;
   }
   img {
-    display: inline-block;
+    display: block;
     width: 100%;
   }
 `;
@@ -192,15 +230,20 @@ const PitchRotateNumber = styled.div`
 const Pitch = styled.div`
   position: absolute;
   right: 12px;
-  bottom: 38px;
+  bottom: 44px;
   width: 56px;
+  @media screen and (max-width: 1656px) {
+    right: 0.72vw;
+    bottom: 2.66vw;
+    width: 3.38vw;
+  }
   @media screen and (max-width: 768px) {
     right: 2vw;
-    bottom: 4vw;
+    bottom: 6vw;
     width: 6vw;
   }
   img {
-    display: inline-block;
+    display: block;
     width: 100%;
   }
 `;
@@ -210,12 +253,18 @@ const Sticker = styled.div`
   right: 78px;
   bottom: 16px;
   width: 136px;
+  @media screen and (max-width: 1656px) {
+    right: 4.71vw;
+    bottom: 0.97vw;
+    width: 8.21vw;
+  }
   @media screen and (max-width: 768px) {
     right: 10vw;
     bottom: 1.5vw;
     width: 14vw;
   }
   img {
+    display: block;
     width: 100%;
   }
 `;
@@ -225,24 +274,36 @@ const Adapter = styled.div`
   top: 24px;
   left: 24px;
   width: 65px;
+  @media screen and (max-width: 1656px) {
+    top: 1.45vw;
+    left: 1.45vw;
+    width: 3.93vw;
+  }
   @media screen and (max-width: 768px) {
     width: 7vw;
     top: 3vw;
     left: 3vw;
   }
   img {
+    display: block;
     width: 100%;
   }
 `;
+
 const Power = styled.div`
   position: absolute;
   left: 16px;
   bottom: 78px;
   width: 95px;
+  @media screen and (max-width: 1656px) {
+    left: 0.97vw;
+    bottom: 4.71vw;
+    width: 5.74vw;
+  }
   @media screen and (max-width: 768px) {
-    width: 11vw;
+    width: 10.5vw;
     left: 2vw;
-    bottom: 7vw;
+    bottom: 8.5vw;
   }
   .power {
     width: 100%;
@@ -250,23 +311,88 @@ const Power = styled.div`
   .power-text {
     position: absolute;
     left: 5px;
-    bottom: 8px;
+    bottom: 3px;
     z-index: 1;
     width: 30px;
+    @media screen and (max-width: 1656px) {
+      left: 0.3vw;
+      bottom: 0.18vw;
+      width: 1.81vw;
+    }
     @media screen and (max-width: 768px) {
-      left: .5vw;
-      bottom: 1.75vw;
-      width: 3.5vw;
+      left: 0.6vw;
+      bottom: 0.35vw;
+      width: 3.3vw;
+    }
+  }
+  img {
+    display: block;
+  }
+`;
+
+const StartText = styled.p`
+  position: absolute;
+  left: -84px;
+  bottom: 28px;
+  font-size: 0.5rem;
+  color: #fff;
+  text-transform: capitalize;
+  animation: text-blinking 1s ease-in-out infinite;
+  span {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.25rem;
+  }
+  &.none {
+    display: none;
+  }
+  &::before,
+  &::after  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+  }
+  &::before {
+    right: -30px;
+    width: 6px;
+    height: 6px;
+    border: 6px solid transparent;
+    border-left: 6px solid #ffffff;
+    box-sizing: border-box;
+  }
+  &::after {
+    position: absolute;
+    right: -32px;
+    width: 14px;
+    height: 6px;
+    border-left: 12px solid #ffffff;
+  }
+  @keyframes text-blinking {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
     }
   }
 `;
 
-const Turntable = () => {
-  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB} = useContext(PromoContext);
+const TurntablePc = () => {
+  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB, setIsAnimatedC, setIsAnimatedD, setIsAnimatedE, setIsAnimatedF, setIsAnimatedG} = useContext(PromoContextPc);
   const [play, { stop }] = useSound(sound);
 
   const clickHandle = () => {
     setIsAnimatedA(prev => !prev);
+    setIsAnimatedB(false);
+    setIsAnimatedC(false);
+    setIsAnimatedD(false);
+    setIsAnimatedE(false);
+    setIsAnimatedF(false);
+    setIsAnimatedG(false);
   };
   
   const handleSoundEnd = () => {
@@ -294,15 +420,14 @@ const Turntable = () => {
     }
   }, [isAnimatedA, setIsAnimatedB, play, stop]);
 
-
   return (
     <TurntableWrapper>
       <TurntableContainer className={isAnimatedA ? "active" : ""}>
         <Needle className={isAnimatedA ? "needle-drop" : ""}>
           <img src={needleImg} alt="Needle" />
         </Needle>
-        <Rotate>
-          <img src={vinyl} alt="Slow Down Vinyl" className={isAnimatedB ? "rotate-vinyl" : ""} />
+        <Rotate href="https://linkco.re/xq9Xv6Ne" target="_blank">
+          <img src={vinyl} alt="Slow Down Vinyl" className={isAnimatedB ? "rotate-vinyl" : ""} width="720" height="720" />
         </Rotate>
         <StartButton onClick={clickHandle}>
           <img src={startText} alt="start・stop" />
@@ -324,9 +449,13 @@ const Turntable = () => {
           <img src={powerText} alt="on off" className="power-text" />
         </Power>
         <audio src={sound} onEnded={handleSoundEnd} style={{ display: 'none' }} />
+        <StartText className={isAnimatedA ? "none" : ""}>
+          Click here
+          <span>※音楽が流れます。</span>
+        </StartText>
       </TurntableContainer>
     </TurntableWrapper>
   );
 }
 
-export default Turntable;
+export default TurntablePc;

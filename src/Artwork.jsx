@@ -5,8 +5,11 @@ import artwork from "/src/assets/slowdown_artwork.png";
 
 const ArtworkComponent = styled.div`
   width: 720px;
+  @media screen and (max-width: 1656px) {
+    width: 43.4782609vw;
+    
+  }
   @media screen and (max-width: 768px) {
-    margin-top: 4vw;
     width: 100%;
   }
   a {
@@ -17,7 +20,6 @@ const ArtworkComponent = styled.div`
     max-width: 100%;
     height: auto;
     vertical-align: bottom;
-
   }
 `;
 

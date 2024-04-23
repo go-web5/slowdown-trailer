@@ -12,11 +12,14 @@ const GlobalStyles = createGlobalStyle`
     height: 100vh;
     line-height: 1.4;
     text-transform: uppercase;
-    min-width: 800px;
+    min-width: 816px;
+    @media screen and (max-width: 1656px) {
+      min-width: calc(43.4782609vw + 6vw * 2);
+    }
     @media screen and (max-width: 768px) {
       line-height: 1.6;
       height: 100svh;
-      min-width: auto;
+      min-width: 100%;
     }
   }
 `;

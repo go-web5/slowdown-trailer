@@ -135,7 +135,7 @@ const infoList = [
     className: "spotify"
   },
   {
-    href: "https://www.amazon.co.jp/music/player?&_encoding=UTF8&tag=tcjaz-22&linkCode=ur2&camp=247&creative=1211",
+    href: "https://www.amazon.co.jp/music/player/albums/B0CZ7P5V1T?&_encoding=UTF8&tag=tcjaz-22&linkCode=ur2&camp=247&creative=1211",
     imgSrc: amazon,
     imgAlt: "amazon music",
     className: "amazon"

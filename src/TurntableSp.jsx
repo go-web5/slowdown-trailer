@@ -163,6 +163,7 @@ const StartButton = styled.button`
     border-width: 0.5vw;
   }
   img {
+    display: block;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -265,15 +266,73 @@ const Power = styled.div`
   }
   img {
     display: block;
+    height: auto;
+  }
+`;
+
+const StartText = styled.p`
+  position: absolute;
+  left: 1.4vw;
+  bottom: -9.8vw;
+  font-size: 0.4rem;
+  color: #fff;
+  text-transform: capitalize;
+  animation: text-blinking 1s ease-in-out infinite;
+  span {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.25rem;
+  }
+  &.none {
+    display: none;
+  }
+  &::before,
+  &::after  {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    content: '';
+  }
+  &::before {
+    top: -5vw;
+    width: 2vw;
+    height: 2vw;
+    border: 1.5vw solid transparent;
+    border-bottom: 1.5vw solid #ffffff;
+    box-sizing: border-box;
+  }
+  &::after {
+    position: absolute;
+    top: -4.2vw;
+    width: 1.5vw;
+    height: 2vw;
+    border-bottom: 1.5vw solid #ffffff;
+  }
+  @keyframes text-blinking {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;
 
 const TurntableSp = () => {
-  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB} = useContext(PromoContextSp);
+  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB, setIsAnimatedC, setIsAnimatedD, setIsAnimatedE, setIsAnimatedF, setIsAnimatedG} = useContext(PromoContextSp);
   const [play, { stop }] = useSound(sound);
 
   const clickHandle = () => {
     setIsAnimatedA(prev => !prev);
+    setIsAnimatedB(false);
+    setIsAnimatedC(false);
+    setIsAnimatedD(false);
+    setIsAnimatedE(false);
+    setIsAnimatedF(false);
+    setIsAnimatedG(false);
   };
   
   const handleSoundEnd = () => {
@@ -330,6 +389,10 @@ const TurntableSp = () => {
           <img src={powerText} alt="on off" className="power-text" />
         </Power>
         <audio src={sound} onEnded={handleSoundEnd} style={{ display: 'none' }} />
+        <StartText className={isAnimatedA ? "none" : ""}>
+          Tap here
+          <span>※音楽が流れます。</span>
+        </StartText>
       </TurntableContainer>
     </TurntableWrapper>
   );

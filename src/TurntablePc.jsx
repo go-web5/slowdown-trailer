@@ -330,12 +330,69 @@ const Power = styled.div`
   }
 `;
 
+const StartText = styled.p`
+  position: absolute;
+  left: -84px;
+  bottom: 28px;
+  font-size: 0.5rem;
+  color: #fff;
+  text-transform: capitalize;
+  animation: text-blinking 1s ease-in-out infinite;
+  span {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.25rem;
+  }
+  &.none {
+    display: none;
+  }
+  &::before,
+  &::after  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+  }
+  &::before {
+    right: -30px;
+    width: 6px;
+    height: 6px;
+    border: 6px solid transparent;
+    border-left: 6px solid #ffffff;
+    box-sizing: border-box;
+  }
+  &::after {
+    position: absolute;
+    right: -32px;
+    width: 14px;
+    height: 6px;
+    border-left: 12px solid #ffffff;
+  }
+  @keyframes text-blinking {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+
 const TurntablePc = () => {
-  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB} = useContext(PromoContextPc);
+  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB, setIsAnimatedC, setIsAnimatedD, setIsAnimatedE, setIsAnimatedF, setIsAnimatedG} = useContext(PromoContextPc);
   const [play, { stop }] = useSound(sound);
 
   const clickHandle = () => {
     setIsAnimatedA(prev => !prev);
+    setIsAnimatedB(false);
+    setIsAnimatedC(false);
+    setIsAnimatedD(false);
+    setIsAnimatedE(false);
+    setIsAnimatedF(false);
+    setIsAnimatedG(false);
   };
   
   const handleSoundEnd = () => {
@@ -392,6 +449,10 @@ const TurntablePc = () => {
           <img src={powerText} alt="on off" className="power-text" />
         </Power>
         <audio src={sound} onEnded={handleSoundEnd} style={{ display: 'none' }} />
+        <StartText className={isAnimatedA ? "none" : ""}>
+          Click here
+          <span>※音楽が流れます。</span>
+        </StartText>
       </TurntableContainer>
     </TurntableWrapper>
   );

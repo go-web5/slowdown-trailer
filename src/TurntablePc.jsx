@@ -338,10 +338,26 @@ const StartText = styled.p`
   color: #fff;
   text-transform: capitalize;
   animation: text-blinking 1s ease-in-out infinite;
+  @media screen and (max-width: 1656px) {
+    left: -4.8vw;
+    bottom: 1.69vw;
+    font-size: clamp(0.3rem, 0.213rem + 0.28vw, 0.5rem);
+  }
+  @media screen and (max-width: 1079px) {
+    left: .5vw;
+    bottom: -3.8vw;
+    font-size: 0.4rem;
+  }
   span {
     display: block;
     margin-top: 2px;
     font-size: 0.25rem;
+    @media screen and (max-width: 1656px) {
+      font-size: clamp(0.188rem, 0.07rem + 0.17vw, 0.25rem);
+    }
+    @media screen and (max-width: 1079px) {
+      margin-top: 0.12vw;
+    }
   }
   &.none {
     display: none;
@@ -352,6 +368,11 @@ const StartText = styled.p`
     top: 50%;
     transform: translateY(-50%);
     content: "";
+    @media screen and (max-width: 1079px) {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
   }
   &::before {
     right: -30px;
@@ -360,13 +381,40 @@ const StartText = styled.p`
     border: 6px solid transparent;
     border-left: 6px solid #ffffff;
     box-sizing: border-box;
+    @media screen and (max-width: 1656px) {
+      right: -1.28vw;
+      width: 0.36vw;
+      height: 0.36vw;
+      border-width: 0.36vw;
+    }
+    @media screen and (max-width: 1079px) {
+      right: 0;
+      top: -2.6vw;
+      width: 1.5vw;
+      height: 1.5vw;
+      border: 0.8vw solid transparent;
+      border-bottom: .8vw solid #ffffff;
+    }
   }
   &::after {
     position: absolute;
-    right: -32px;
+    right: -34px;
     width: 14px;
     height: 6px;
     border-left: 12px solid #ffffff;
+    @media screen and (max-width: 1656px) {
+      width: 0;
+      right: -0.72vw;
+      height: 0.3vw;
+      border-left-width: 0.48vw;
+    }
+    @media screen and (max-width: 1079px) {
+      top: -2.3vw;
+      width: 0.5vw;
+      height: 1vw;
+      border-left: 0;
+      border-bottom: 1vw solid #ffffff;
+    }
   }
   @keyframes text-blinking {
     0% {

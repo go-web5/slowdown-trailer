@@ -23,23 +23,16 @@ const TurntableWrapper = styled.div`
 
 const TurntableContainer = styled.div`
   position: relative;
-  width: 720px;
+  width: 80vw;
   height: auto;
   aspect-ratio: 453 / 353;
   background-color: #EDEDF1;
-  border: 2px solid #737373;
-  border-radius: 2px;
-  transform: scale(5);
-  transform-origin: left bottom;
-  transition: transform .4s ease-out;
+  border: 0.5vw solid #737373;
+  border-radius: 1vw;
   box-sizing: border-box;
-  @media screen and (max-width: 768px) {
-    width: 80vw;
-    transform: scale(4);
-    transition-duration: .5s;
-    border-width: 0.5vw;
-    border-radius: 1vw;
-  }
+  transform: scale(4);
+  transform-origin: left bottom;
+  transition: transform .5s ease-out;
   &.active {
     transform: scale(1);
   }
@@ -50,37 +43,18 @@ const TurntableContainer = styled.div`
 
 const Needle = styled.div`
   position: absolute;
-  top: 16px;
-  right: 20px;
-  width: 170px;
-  transform-origin: 52% 26%;
+  top: 1vw;
+  right: 1.6vw;
   z-index: 1;
-  @media screen and (max-width: 768px) {
-    top: 1vw;
-    right: 1.6vw;
-    width: 20vw;
-  }
+  width: 20vw;
+  transform-origin: 52% 26%;
   img {
     display: block;
     width: 100%;
-    filter: drop-shadow(10px 10px 5px rgba(53, 50, 50, 0.5));
-    @media screen and (max-width: 768px) {
-      filter: drop-shadow(1.25vw 1.25vw 1vw rgba(53, 50, 50, 0.5));
-    }
+    filter: drop-shadow(1.25vw 1.25vw 1vw rgba(53, 50, 50, 0.5));
   }
   &.needle-drop {
-    animation: needle-set-pc 1.6s forwards;
-    @media screen and (max-width: 768px) {
-      animation: needle-set-sp 1.6s forwards;
-    }
-  }
-  @keyframes needle-set-pc {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(24deg);
-    }
+    animation: needle-set-sp 1.6s forwards;
   }
   @keyframes needle-set-sp {
     0% {
@@ -93,44 +67,28 @@ const Needle = styled.div`
 `;
 
 const Rotate = styled.a`
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 524px;
-  height: 524px;
+  position: absolute;
+  top: 50%;
+  left: 1.75vw;
+  width: 58vw;
+  height: 58vw;
+  transform: translateY(-50%);
+  border: .5vw solid #3f3f3f;
   border-radius: 100vmax;
   background-color: #3f3f3f;
   background-image:
     radial-gradient(#cdcdcd 24%, transparent 27%),
     radial-gradient(#cdcdcd 24%, transparent 27%);
-  background-position: 0 0, 6px 6px;
-  background-size: 12px 12px;
-  border: 4px solid #3f3f3f;
-  @media screen and (max-width: 768px) {
-    left: 1.75vw;
-    width: 58vw;
-    height: 58vw;
-    background-image:
-      radial-gradient(#cdcdcd 24%, transparent 27%),
-      radial-gradient(#cdcdcd 24%, transparent 27%);
-    background-position: 0 0, .75vw .75vw;
-    background-size: 1.5vw 1.5vw;
-    border-width: .5vw;
-  }
+  background-position: 0 0, .75vw .75vw;
+  background-size: 1.5vw 1.5vw;
   img {
-    width: 480px;
-    height: 480px;
-    border: 4px solid #3f3f3f;
+    width: 54vw;
+    height: 54vw;
+    border: .5vw solid #3f3f3f;
     border-radius: 100vmax;
-    @media screen and (max-width: 768px) {
-      width: 54vw;
-      height: 54vw;
-      border-width: .5vw;
-    }
     &.rotate-vinyl {
       animation: rotate_anime 6s linear infinite;
     }
@@ -148,43 +106,28 @@ const Rotate = styled.a`
 const StartButton = styled.button`
   display: block;
   position: absolute;
-  bottom: 14px;
-  left: 14px;
-  width: 72px;
-  height: 50px;
+  bottom: 2vw;
+  left: 2vw;
+  width: 8vw;
+  height: 5vw;
+  border: 0.5vw solid #0f0f0f;
   background-color: #EDEDF1;
-  border: 4px solid #0f0f0f;
   cursor: pointer;
-  @media screen and (max-width: 768px) {
-    bottom: 2vw;
-    left: 2vw;
-    width: 8vw;
-    height: 5vw;
-    border-width: 0.5vw;
-  }
   img {
     display: block;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 38px;
-    @media screen and (max-width: 768px) {
-      width: 5vw;
-    }
+    width: 5vw;
   }
 `;
 
 const PitchRotateNumber = styled.div`
   position: absolute;
-  bottom: 14px;
-  left: 94px;
-  width: 80px;
-  @media screen and (max-width: 768px) {
-    width: 8vw;
-    left: 10.7vw;
-    bottom: 2vw;
-  }
+  left: 10.7vw;
+  bottom: 2vw;
+  width: 8vw;
   img {
     display: block;
     width: 100%;
@@ -193,14 +136,9 @@ const PitchRotateNumber = styled.div`
 
 const Pitch = styled.div`
   position: absolute;
-  right: 12px;
-  bottom: 44px;
-  width: 56px;
-  @media screen and (max-width: 768px) {
-    right: 2vw;
-    bottom: 6vw;
-    width: 6vw;
-  }
+  right: 2vw;
+  bottom: 6vw;
+  width: 6vw;
   img {
     display: block;
     width: 100%;
@@ -209,14 +147,9 @@ const Pitch = styled.div`
 
 const Sticker = styled.div`
   position: absolute;
-  right: 78px;
-  bottom: 16px;
-  width: 136px;
-  @media screen and (max-width: 768px) {
-    right: 10vw;
-    bottom: 1.5vw;
-    width: 14vw;
-  }
+  right: 10vw;
+  bottom: 1.5vw;
+  width: 14vw;
   img {
     display: block;
     width: 100%;
@@ -225,14 +158,9 @@ const Sticker = styled.div`
 
 const Adapter = styled.div`
   position: absolute;
-  top: 24px;
-  left: 24px;
-  width: 65px;
-  @media screen and (max-width: 768px) {
-    width: 7vw;
-    top: 3vw;
-    left: 3vw;
-  }
+  top: 3vw;
+  left: 3vw;
+  width: 7vw;
   img {
     display: block;
     width: 100%;
@@ -241,28 +169,18 @@ const Adapter = styled.div`
 
 const Power = styled.div`
   position: absolute;
-  left: 16px;
-  bottom: 78px;
-  width: 95px;
-  @media screen and (max-width: 768px) {
-    width: 10.5vw;
-    left: 2vw;
-    bottom: 8.5vw;
-  }
+  left: 2vw;
+  bottom: 8.5vw;
+  width: 10.5vw;
   .power {
     width: 100%;
   }
   .power-text {
     position: absolute;
-    left: 5px;
-    bottom: 3px;
     z-index: 1;
-    width: 30px;
-    @media screen and (max-width: 768px) {
-      left: 0.6vw;
-      bottom: 0.35vw;
-      width: 3.3vw;
-    }
+    left: 0.6vw;
+    bottom: 0.35vw;
+    width: 3.3vw;
   }
   img {
     display: block;

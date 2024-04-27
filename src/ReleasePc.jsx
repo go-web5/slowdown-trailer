@@ -98,11 +98,9 @@ const H1 = styled.h1`
 `;
 
 const LinkList = styled.ul`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   display: grid;
   grid-template-columns: 208px 152px 208px;
+  place-items: center;
   gap: 40px;
   margin-top: 60px;
   opacity: 0;

@@ -74,22 +74,13 @@ const Main = styled.div`
 `;
 
 const LinkList = styled.ul`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 26vw 21vw 25vw;
+  place-items: center;
   gap: 3vw;
   margin-top: 4vw;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-  .apple {
-    width: 26vw;
-  }
-  .spotify {
-    width: 21vw;
-  }
-  .amazon {
-    width: 25vw;
-  }
   &.active {
     opacity: 1;
   }
@@ -125,20 +116,17 @@ const infoList = [
   {
     href: "https://music.apple.com/jp/album/1738276723?mt=1&app=music&at=10l7qr",
     imgSrc: apple,
-    imgAlt: "Listen on Apple Music",
-    className: "apple"
+    imgAlt: "Listen on Apple Music"
   },
   {
     href: "https://open.spotify.com/intl-ja/album/2JBmHmExVpG5MpIO3xfVa4",
     imgSrc: spotify,
-    imgAlt: "Spotify",
-    className: "spotify"
+    imgAlt: "Spotify"
   },
   {
     href: "https://www.amazon.co.jp/music/player/albums/B0CZ7P5V1T?&_encoding=UTF8&tag=tcjaz-22&linkCode=ur2&camp=247&creative=1211",
     imgSrc: amazon,
-    imgAlt: "amazon music",
-    className: "amazon"
+    imgAlt: "amazon music"
   },
 ]
 
@@ -278,7 +266,7 @@ function App() {
             <LinkList className={isAnimatedD ? "active" : ""}>
             {infoList.map((infoItem, index) => (
               <li key={index}>
-                <a href={infoItem.href} target="_blank" className={infoItem.className}>
+                <a href={infoItem.href} target="_blank">
                   <img src={infoItem.imgSrc} alt={infoItem.imgAlt} />
                 </a>
               </li>

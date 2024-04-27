@@ -37,13 +37,6 @@ const TurntableContainer = styled.div`
     width: 43.4782609vw;
     border-width: 0.12vw;
   }
-  @media screen and (max-width: 768px) {
-    width: 80vw;
-    transform: scale(4);
-    transition-duration: .5s;
-    border-width: 0.5vw;
-    border-radius: 1vw;
-  }
   &.active {
     transform: scale(1);
   }
@@ -64,24 +57,13 @@ const Needle = styled.div`
     right: 1.21vw;
     width: 10.27vw;
   }
-  @media screen and (max-width: 768px) {
-    top: 1vw;
-    right: 1.6vw;
-    width: 20vw;
-  }
   img {
     display: block;
     width: 100%;
     filter: drop-shadow(10px 10px 5px rgba(53, 50, 50, 0.5));
-    @media screen and (max-width: 768px) {
-      filter: drop-shadow(1.25vw 1.25vw 1vw rgba(53, 50, 50, 0.5));
-    }
   }
   &.needle-drop {
     animation: needle-set-pc 1.6s forwards;
-    @media screen and (max-width: 768px) {
-      animation: needle-set-sp 1.6s forwards;
-    }
   }
   @keyframes needle-set-pc {
     0% {
@@ -89,14 +71,6 @@ const Needle = styled.div`
     }
     100% {
       transform: rotate(24deg);
-    }
-  }
-  @keyframes needle-set-sp {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(26deg);
     }
   }
 `;
@@ -127,17 +101,6 @@ const Rotate = styled.a`
     background-size: 0.72vw 0.72vw;
     border-width: 0.24vw;
   }
-  @media screen and (max-width: 768px) {
-    left: 1.75vw;
-    width: 58vw;
-    height: 58vw;
-    background-image:
-      radial-gradient(#cdcdcd 24%, transparent 27%),
-      radial-gradient(#cdcdcd 24%, transparent 27%);
-    background-position: 0 0, .75vw .75vw;
-    background-size: 1.5vw 1.5vw;
-    border-width: .5vw;
-  }
   img {
     width: 480px;
     height: 480px;
@@ -147,11 +110,6 @@ const Rotate = styled.a`
       width: 28.99vw;
       height: 28.99vw;
       border-width: 0.24vw;
-    }
-    @media screen and (max-width: 768px) {
-      width: 54vw;
-      height: 54vw;
-      border-width: .5vw;
     }
     &.rotate-vinyl {
       animation: rotate_anime 6s linear infinite;
@@ -184,13 +142,6 @@ const StartButton = styled.button`
     height: 3.02vw;
     border-width: 0.24vw;
   }
-  @media screen and (max-width: 768px) {
-    bottom: 2vw;
-    left: 2vw;
-    width: 8vw;
-    height: 5vw;
-    border-width: 0.5vw;
-  }
   img {
     position: absolute;
     top: 50%;
@@ -199,9 +150,6 @@ const StartButton = styled.button`
     width: 38px;
     @media screen and (max-width: 1656px) {
       width: 2.29vw;
-    }
-    @media screen and (max-width: 768px) {
-      width: 5vw;
     }
   }
 `;
@@ -215,11 +163,6 @@ const PitchRotateNumber = styled.div`
     bottom: 0.85vw;
     left: 5.68vw;
     width: 4.83vw;
-  }
-  @media screen and (max-width: 768px) {
-    width: 8vw;
-    left: 10.7vw;
-    bottom: 2vw;
   }
   img {
     display: block;
@@ -237,11 +180,6 @@ const Pitch = styled.div`
     bottom: 2.66vw;
     width: 3.38vw;
   }
-  @media screen and (max-width: 768px) {
-    right: 2vw;
-    bottom: 6vw;
-    width: 6vw;
-  }
   img {
     display: block;
     width: 100%;
@@ -257,11 +195,6 @@ const Sticker = styled.div`
     right: 4.71vw;
     bottom: 0.97vw;
     width: 8.21vw;
-  }
-  @media screen and (max-width: 768px) {
-    right: 10vw;
-    bottom: 1.5vw;
-    width: 14vw;
   }
   img {
     display: block;
@@ -279,11 +212,6 @@ const Adapter = styled.div`
     left: 1.45vw;
     width: 3.93vw;
   }
-  @media screen and (max-width: 768px) {
-    width: 7vw;
-    top: 3vw;
-    left: 3vw;
-  }
   img {
     display: block;
     width: 100%;
@@ -300,11 +228,6 @@ const Power = styled.div`
     bottom: 4.71vw;
     width: 5.74vw;
   }
-  @media screen and (max-width: 768px) {
-    width: 10.5vw;
-    left: 2vw;
-    bottom: 8.5vw;
-  }
   .power {
     width: 100%;
   }
@@ -318,11 +241,6 @@ const Power = styled.div`
       left: 0.3vw;
       bottom: 0.18vw;
       width: 1.81vw;
-    }
-    @media screen and (max-width: 768px) {
-      left: 0.6vw;
-      bottom: 0.35vw;
-      width: 3.3vw;
     }
   }
   img {
@@ -338,10 +256,26 @@ const StartText = styled.p`
   color: #fff;
   text-transform: capitalize;
   animation: text-blinking 1s ease-in-out infinite;
+  @media screen and (max-width: 1656px) {
+    left: -4.8vw;
+    bottom: 1.69vw;
+    font-size: clamp(0.3rem, 0.213rem + 0.28vw, 0.5rem);
+  }
+  @media screen and (max-width: 1079px) {
+    left: .5vw;
+    bottom: -3.8vw;
+    font-size: 0.4rem;
+  }
   span {
     display: block;
     margin-top: 2px;
     font-size: 0.25rem;
+    @media screen and (max-width: 1656px) {
+      font-size: clamp(0.188rem, 0.07rem + 0.17vw, 0.25rem);
+    }
+    @media screen and (max-width: 1079px) {
+      margin-top: 0.12vw;
+    }
   }
   &.none {
     display: none;
@@ -352,6 +286,11 @@ const StartText = styled.p`
     top: 50%;
     transform: translateY(-50%);
     content: "";
+    @media screen and (max-width: 1079px) {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
   }
   &::before {
     right: -30px;
@@ -360,13 +299,40 @@ const StartText = styled.p`
     border: 6px solid transparent;
     border-left: 6px solid #ffffff;
     box-sizing: border-box;
+    @media screen and (max-width: 1656px) {
+      right: -1.28vw;
+      width: 0.36vw;
+      height: 0.36vw;
+      border-width: 0.36vw;
+    }
+    @media screen and (max-width: 1079px) {
+      right: 0;
+      top: -2.6vw;
+      width: 1.5vw;
+      height: 1.5vw;
+      border: 0.8vw solid transparent;
+      border-bottom: .8vw solid #ffffff;
+    }
   }
   &::after {
     position: absolute;
-    right: -32px;
+    right: -34px;
     width: 14px;
     height: 6px;
     border-left: 12px solid #ffffff;
+    @media screen and (max-width: 1656px) {
+      width: 0;
+      right: -0.72vw;
+      height: 0.3vw;
+      border-left-width: 0.48vw;
+    }
+    @media screen and (max-width: 1079px) {
+      top: -2.3vw;
+      width: 0.5vw;
+      height: 1vw;
+      border-left: 0;
+      border-bottom: 1vw solid #ffffff;
+    }
   }
   @keyframes text-blinking {
     0% {

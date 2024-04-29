@@ -259,20 +259,18 @@ const TurntableSp = () => {
     stop();
   };
   
+  // A: ターンテーブルのアームセッティング、1.4秒後に音楽再生＆レコード回転開始
   useEffect(() => {
     if (isAnimatedA) {
-      console.log("START");
       const animationTimeout = setTimeout(() => {
         setIsAnimatedB(prev => !prev);
         play();
       }, 1400);
       
       return () => {
-        console.log("CLEAN UP");
         clearTimeout(animationTimeout);
       }
     } else {
-      console.log("STOP");
       setIsAnimatedB(false);
       stop();
     }

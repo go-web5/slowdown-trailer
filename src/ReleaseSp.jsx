@@ -142,7 +142,6 @@ function App() {
   // B: 2.6秒後にテキストが非表示で存在
   useEffect(() => {
     if(isAnimatedB) {
-      console.log("2.6秒後にテキスト表示");
       const changeTimeout2 = setTimeout(() => {
         setIsAnimatedC(prev => !prev);
       }, 2600);
@@ -156,10 +155,8 @@ function App() {
   // C: テキスト分割＆表示開始
   useEffect(() => {
     if(isAnimatedC) {
-      console.log("2秒後にテキスト分割＆表示準備");
-
+      // js-split-textの要素の配列に格納
       const splitTargets = document.querySelectorAll(".js-split-text");
-      console.log(splitTargets);
     
       // 配列のテキストを1文字ずつspanに囲いアニメーション
       splitTargets.forEach((splitTarget) => {
@@ -173,7 +170,6 @@ function App() {
           charSpan.style.transition = 'opacity 0.5s ease-in-out ' + charIndex * 0.2 + 's, transform 0.5s ease-in-out ' + charIndex * 0.2 + 's';
           
           setTimeout(() => {
-            console.log("テキスト表示開始");
             charSpan.style.opacity = 1;
             charSpan.style.transform = 'translateY(0)';
           }, 100);
@@ -194,7 +190,6 @@ function App() {
   useEffect(() => {
     if(isAnimatedD) {
       const changeTimeout4 = setTimeout(() => {
-        console.log("OUT NOW点滅開始");
         setIsAnimatedE(prev => !prev);
       }, 1600);
 
@@ -208,7 +203,6 @@ function App() {
   useEffect(() => {
     if(isAnimatedE) {
       const changeTimeout5 = setTimeout(() => {
-        console.log("ターンテーブル上下の余白広がる");
         setIsAnimatedF(prev => !prev);
       }, 21000);
 
@@ -222,7 +216,6 @@ function App() {
   useEffect(() => {
     if(isAnimatedF) {
       const changeTimeout6 = setTimeout(() => {
-        console.log("ターンテーブルからアートワークに表示切り替え");
         setIsAnimatedG(prev => !prev);
       }, 1000);
 

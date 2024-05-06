@@ -244,16 +244,7 @@ const TurntableSp = () => {
   const [play, { stop }] = useSound(sound);
 
   const clickHandle = () => {
-    setIsAnimated(prev => ({
-      ...prev,
-      a: !prev.a,
-      b: false,
-      c: false,
-      d: false,
-      e: false,
-      f: false,
-      g: false
-    }));
+    setIsAnimated(prev => ({ ...prev, a: !prev.a }));
   };
   
   const handleSoundEnd = () => {

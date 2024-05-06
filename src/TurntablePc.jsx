@@ -348,30 +348,33 @@ const StartText = styled.p`
 `;
 
 const TurntablePc = () => {
-  const {isAnimatedA, setIsAnimatedA, isAnimatedB, setIsAnimatedB, setIsAnimatedC, setIsAnimatedD, setIsAnimatedE, setIsAnimatedF, setIsAnimatedG} = useContext(PromoContextPc);
+  const {isAnimated, setIsAnimated} = useContext(PromoContextPc);
   const [play, { stop }] = useSound(sound);
 
   const clickHandle = () => {
-    setIsAnimatedA(prev => !prev);
-    setIsAnimatedB(false);
-    setIsAnimatedC(false);
-    setIsAnimatedD(false);
-    setIsAnimatedE(false);
-    setIsAnimatedF(false);
-    setIsAnimatedG(false);
+    setIsAnimated(prev => ({
+      ...prev,
+      a: !prev.a,
+      b: false,
+      c: false,
+      d: false,
+      e: false,
+      f: false,
+      g: false
+    }));
   };
   
   const handleSoundEnd = () => {
     clickHandle();
-    setIsAnimatedB(false);
+    setIsAnimated(prev => ({ ...prev, b: false }));
     stop();
   };
   
   // A: ターンテーブルのアームセッティング、1.4秒後に音楽再生＆レコード回転開始
   useEffect(() => {
-    if (isAnimatedA) {
+    if (isAnimated.a) {
       const animationTimeout = setTimeout(() => {
-        setIsAnimatedB(prev => !prev);
+        setIsAnimated(prev => ({ ...prev, b: !prev.b }));
         play();
       }, 1400);
       
@@ -379,19 +382,19 @@ const TurntablePc = () => {
         clearTimeout(animationTimeout);
       }
     } else {
-      setIsAnimatedB(false);
+      setIsAnimated(prev => ({ ...prev, b: false }));
       stop();
     }
-  }, [isAnimatedA, setIsAnimatedB, play, stop]);
+  }, [isAnimated.a, setIsAnimated, play, stop]);
 
   return (
     <TurntableWrapper>
-      <TurntableContainer className={isAnimatedA ? "active" : ""}>
-        <Needle className={isAnimatedA ? "needle-drop" : ""}>
+      <TurntableContainer className={isAnimated.a ? "active" : ""}>
+        <Needle className={isAnimated.a ? "needle-drop" : ""}>
           <img src={needleImg} alt="Needle" />
         </Needle>
         <Rotate href="https://linkco.re/xq9Xv6Ne" target="_blank">
-          <img src={vinyl} alt="Slow Down Vinyl" className={isAnimatedB ? "rotate-vinyl" : ""} width="720" height="720" />
+          <img src={vinyl} alt="Slow Down Vinyl" className={isAnimated.b ? "rotate-vinyl" : ""} width="720" height="720" />
         </Rotate>
         <StartButton onClick={clickHandle}>
           <img src={startText} alt="start・stop" />
@@ -413,7 +416,7 @@ const TurntablePc = () => {
           <img src={powerText} alt="on off" className="power-text" />
         </Power>
         <audio src={sound} onEnded={handleSoundEnd} style={{ display: 'none' }} />
-        <StartText className={isAnimatedA ? "none" : ""}>
+        <StartText className={isAnimated.a ? "none" : ""}>
           Click here
           <span>※音楽が流れます。</span>
         </StartText>

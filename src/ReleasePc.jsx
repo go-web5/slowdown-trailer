@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { mediaQuery, useMediaQuery } from './useMediaQuery';
 import styled from "styled-components";
 import TurntablePc from './TurntablePc';
 import Artwork from './Artwork';
@@ -16,6 +17,9 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
   overflow-x: hidden;
+  @media screen and (max-width: 768px) {
+    
+  }
 `;
 
 const Inner = styled.div`
@@ -24,16 +28,22 @@ const Inner = styled.div`
   width: 720px;
   margin-inline: auto;
   padding: 0 48px;
+  @media screen and (max-width: 1656px) {
+    width: 43.4782609vw;
+    gap: 7vw;
+    padding: 0 6vw;
+  }
+  @media screen and (max-width: 768px) {
+    display: block;
+    gap: normal;
+    width: 80vw;
+    padding: 0 10vw;
+  }
   &.left-move {
     animation: left-move 3s ease-in-out forwards;
     @media screen and (max-width: 1656px) {
       animation: left-move-tab 3s ease-in-out forwards;
     }
-  }
-  @media screen and (max-width: 1656px) {
-    width: 43.4782609vw;
-    gap: 7vw;
-    padding: 0 6vw;
   }
   @keyframes left-move {
     0% {
@@ -72,6 +82,10 @@ const H1 = styled.h1`
   @media screen and (max-width: 1656px) {
     font-size: clamp(1.6rem, 4vw, 5rem);
   }
+  @media screen and (max-width: 768px) {
+    color: rgba(255, 255, 255, 0);
+    font-size: 1.625rem;
+  }
   .small {
     display: block;
     margin-top: 60px;
@@ -80,6 +94,13 @@ const H1 = styled.h1`
     @media screen and (max-width: 1656px) {
       margin-top: 3.62vw;
       font-size: clamp(0.6rem, 1.6vw, 2.25rem);
+    }
+    @media screen and (max-width: 768px) {
+      margin-top: 6vw;
+      font-size: 0.875rem;
+    }
+    &.sp {
+      margin-top: 0;
     }
   }
   .date {
@@ -91,10 +112,38 @@ const H1 = styled.h1`
       margin-right: 0.72vw;
       font-size: clamp(1rem, 1.6vw, 2.8rem);
     }
+    @media screen and (max-width: 768px) {
+      margin-right: 0.25vw;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
   }
   .day {
     display: inline-block;
     letter-spacing: 0.1em;
+    @media screen and (max-width: 768px) {
+      font-size: 0.875rem;
+    }
+  }
+  &.active {
+    color: white;
+  }
+`;
+
+const Main = styled.div`
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 74vw;
+    opacity: 1 !important;
+    transition: height 1s ease-in-out;
+  }
+  &.height-large {
+    height: 90vw;
   }
 `;
 
@@ -110,6 +159,11 @@ const LinkList = styled.ul`
     grid-template-columns: 12.56vw 9.18vw 12.56vw;
     gap: 2.42vw;
     margin-top: 3.62vw;
+  }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 26vw 21vw 25vw;
+    gap: 3vw;
+    margin-top: 4vw;
   }
   a {
     display: inline-block;
@@ -129,6 +183,9 @@ const SplitText = styled.span`
   &.blinking {
     color: #cf1313;
     animation: blinking 1s ease-in-out infinite;
+    @media screen and (max-width: 768px) {
+      animation-duration: 1.5s;
+    }
   }
   @keyframes blinking {
     0% {
@@ -171,105 +228,170 @@ function App() {
     f: false,
     g: false
   });
+  const isSp = useMediaQuery(mediaQuery.sp);
 
-  // B: 3秒後にターンテーブルが左に移動開始
+  // B
   useEffect(() => {
+    // SP以外: 3秒後にターンテーブルが左に移動開始
+    // SP: 2.6秒後にテキストが非表示で存在
     if(isAnimated.b) {
+      const timeoutDuration = isSp ? 2600 : 3000;
       const changeTimeout2 = setTimeout(() => {
         setIsAnimated(prev => ({ ...prev, c: !prev.c }));
-      }, 3000);
+      }, timeoutDuration);
 
       return () => {
         clearTimeout(changeTimeout2);
       }
     }
-  }, [isAnimated.b, setIsAnimated]);
+  }, [isAnimated.b, setIsAnimated, isSp]);
 
-  // C: 3秒後に右側のテキストエリア非表示で存在
+  // C
   useEffect(() => {
+    // SP以外: 3秒後に右側のテキストエリア非表示で存在
+    // SP: テキスト分割＆表示開始、2秒後に isAnimated.d がtrue
+
     if(isAnimated.c) {
+      const timeoutDuration = isSp ? 2000 : 3000;
+
+      // SP テキスト分割＆表示開始
+      if (isSp) {
+        // js-split-textの要素の配列に格納
+        const splitTargets = document.querySelectorAll(".js-split-text");
+      
+        // 配列のテキストを1文字ずつspanに囲いアニメーション
+        splitTargets.forEach((splitTarget) => {
+          const text = splitTarget.textContent;
+          const newContent = text.split('').map(char => `<span>${char}</span>`).join('');
+          splitTarget.innerHTML = newContent;
+          
+          splitTarget.querySelectorAll('span').forEach((charSpan, charIndex) => {
+            charSpan.style.opacity = 0;
+            charSpan.style.transform = 'translateY(100%)';
+            charSpan.style.transition = 'opacity 0.5s ease-in-out ' + charIndex * 0.2 + 's, transform 0.5s ease-in-out ' + charIndex * 0.2 + 's';
+            
+            setTimeout(() => {
+              charSpan.style.opacity = 1;
+              charSpan.style.transform = 'translateY(0)';
+            }, 100);
+          });
+        });
+      }
+
       const changeTimeout3 = setTimeout(() => {
         setIsAnimated(prev => ({ ...prev, d: !prev.d }));
-      }, 3000);
+      }, timeoutDuration);
 
       return () => {
         clearTimeout(changeTimeout3);
       }
     }
-  }, [isAnimated.c, setIsAnimated])
+  }, [isAnimated.c, setIsAnimated, isSp])
 
-  // D: 右側のテキスト表示開始
+  // D
   useEffect(() => {
-    if(isAnimated.d) {
-      // js-split-textの要素の配列に格納
-      const splitTargets = document.querySelectorAll(".js-split-text");
+    // SP以外: テキスト分割＆右側に表示開始、1.4秒後にisAnimated.e がtrue
+    // SP: 1.6秒後に OUT NOW点滅開始
     
-      // 配列のテキストを1文字ずつspanに囲いアニメーション
-      splitTargets.forEach((splitTarget) => {
-        const text = splitTarget.textContent;
-        const newContent = text.split('').map(char => `<span>${char}</span>`).join('');
-        splitTarget.innerHTML = newContent;
-        
-        splitTarget.querySelectorAll('span').forEach((charSpan, charIndex) => {
-          charSpan.style.opacity = 0;
-          charSpan.style.transform = 'translateY(100%)';
-          charSpan.style.transition = 'opacity 0.5s ease-in-out ' + charIndex * 0.1 + 's, transform 0.5s ease-in-out ' + charIndex * 0.1 + 's';
-          
-          setTimeout(() => {
-            charSpan.style.opacity = 1;
-            charSpan.style.transform = 'translateY(0)';
-          }, 100);
-        });
-      });
+    if(isAnimated.d) {
+      const timeoutDuration = isSp ? 1600 : 1400;
 
+      // SP以外 テキスト分割＆表示開始
+      if(!isSp) {
+        // js-split-textの要素の配列に格納
+        const splitTargets = document.querySelectorAll(".js-split-text");
+
+        // 配列のテキストを1文字ずつspanに囲いアニメーション
+        splitTargets.forEach((splitTarget) => {
+          const text = splitTarget.textContent;
+          const newContent = text.split('').map(char => `<span>${char}</span>`).join('');
+          splitTarget.innerHTML = newContent;
+          
+          splitTarget.querySelectorAll('span').forEach((charSpan, charIndex) => {
+            charSpan.style.opacity = 0;
+            charSpan.style.transform = 'translateY(100%)';
+            charSpan.style.transition = 'opacity 0.5s ease-in-out ' + charIndex * 0.1 + 's, transform 0.5s ease-in-out ' + charIndex * 0.1 + 's';
+            
+            setTimeout(() => {
+              charSpan.style.opacity = 1;
+              charSpan.style.transform = 'translateY(0)';
+            }, 100);
+          });
+        });
+      }
+  
       const changeTimeout4 = setTimeout(() => {
         setIsAnimated(prev => ({ ...prev, e: !prev.e }));
-      }, 1400);
+      }, timeoutDuration);
 
       return () => {
         clearTimeout(changeTimeout4);
       }
     }
-  }, [isAnimated.d, setIsAnimated])
+  }, [isAnimated.d, setIsAnimated, isSp])
 
-  // E: OUT NOW点滅開始
+  // E
   useEffect(() => {
+    // SP以外: 1.4秒後に OUT NOW点滅開始
+    // SP: 21秒後にターンテーブル上下の余白広がる
     if(isAnimated.e) {
+      const timeoutDuration = isSp ? 21000 : 1400;
+
       const changeTimeout5 = setTimeout(() => {
         setIsAnimated(prev => ({ ...prev, f: !prev.f }));
-      }, 1400);
+      }, timeoutDuration);
 
       return () => {
         clearTimeout(changeTimeout5);
       }
     }
-  }, [isAnimated.e, setIsAnimated])
+  }, [isAnimated.e, setIsAnimated, isSp])
 
-  // F: ターンテーブルからアートワークに表示切り替え
+  // F
   useEffect(() => {
+    // SP以外: 20秒後にターンテーブルからアートワークに表示切り替え
+    // SP: 1秒後にターンテーブルからアートワークに表示切り替え
     if(isAnimated.f) {
+      const timeoutDuration = isSp ? 1000 : 20000;
+
       const changeTimeout6 = setTimeout(() => {
         setIsAnimated(prev => ({ ...prev, g: !prev.g }));
-      }, 20000);
+      }, timeoutDuration);
 
       return () => {
         clearTimeout(changeTimeout6);
       }
     }
-  }, [isAnimated.f, setIsAnimated])
+  }, [isAnimated.f, setIsAnimated, isSp])
 
   return (
     <PromoContextPc.Provider
     value={{ isAnimated, setIsAnimated }}>
       <Wrapper>
-        <Inner className={isAnimated.c ? "left-move" : ""}> 
-          {isAnimated.g ? <Artwork /> : <TurntablePc />}
-          <Right className={isAnimated.d ? "active" : ""}>
-            <H1>
+        <Inner className={!isSp && isAnimated.c ? "left-move" : ""}>
+
+          {/* スマホの場合はnullを返す。スマホ以外の場合、gの真偽値が trueなら Artworkを表示、falseなら TurntablePcを表示 */}
+          {/* {isSp ? null :
+            (isAnimated.g ? <Artwork /> : <TurntablePc />)
+          } */}
+
+          {/* スマホ以外の場合、gの真偽値が trueなら Artworkを表示、falseなら TurntablePcを表示 */}
+          {!isSp &&
+            isAnimated.g ? <Artwork /> : <TurntablePc />
+          }
+
+          <Right className={isSp ? "active" : isAnimated.d ? "active" : ""}>
+            <H1 className={isAnimated.c ? "active" : ""}>
               <SplitText className="js-split-text">Ghost Lamp</SplitText>
               <span className="small js-split-text">New Beat Album</span>
               <SplitText className="js-split-text">Slow Down</SplitText>
-              <span className="small"><span className="date js-split-text">2024.04.23</span><span className="day js-split-text">(Tue)</span></span>
+              {/* スマホの場合、Mainを表示してgの真偽値が trueなら Artworkを表示、falseなら TurntablePcを表示 */}
+              {isSp &&
+                <Main className={isAnimated.f ? "height-large" : ""}>
+                  {isAnimated.g ? <Artwork /> : <TurntablePc />}
+                </Main>
+              }
+              <span className={isSp ? "small sp" : "small" }><span className="date js-split-text">2024.04.23</span><span className="day js-split-text">(Tue)</span></span>
               <SplitText className={isAnimated.f ? "js-split-text blinking" : "js-split-text"}>Out Now</SplitText>
             </H1>
             <LinkList className={isAnimated.e ? "active" : ""}>
